@@ -52,7 +52,10 @@ public class CustomRedisHttpSessionConfiguration extends RedisHttpSessionConfigu
                         List<Object> values = super.multiGet(whitelistedKeys);
                         Map<Object, Object> entries = new HashMap<>();
                         for(int i =0; i < whitelistedKeys.size(); i++) {
-                            entries.put(whitelistedKeys.get(i), values.get(i));
+                            Object value = values.get(i);
+                            if (value != null) {
+                                entries.put(whitelistedKeys.get(i), value);
+                            }
                         }
                         return entries;
                     }
